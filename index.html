@@ -1,0 +1,127 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q4 Drill 2</title>
+    <style>
+        /* [cite: 25] CSS Styling */
+        body {
+            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+            background-image: url('fire.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #4a0e0e;
+        }
+
+        /* Fade-in Animation for the card */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .heat-card {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 25px;
+            border: 5px solid #ff4500;
+            width: 380px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.6);
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            color: #d32f2f;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        details {
+            margin-bottom: 20px;
+            cursor: pointer;
+            color: #ff8c00;
+            font-size: 0.9em;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ffa500;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        /* Button Animation */
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, #ff4e50, #f9d423);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heat-card">
+        <h1>Heat Tracker</h1> <details>
+            <summary>▼ Click for Instructions</summary>
+            <p>Input the temperature (°C) and humidity (%), then click to see the status.</p>
+        </details>
+
+        <label>AIR TEMP (°C)</label>
+        <input type="number" id="airTemp" placeholder="Ex: 32">
+
+        <label>HUMIDITY (%)</label>
+        <input type="number" id="relHum" placeholder="Ex: 75">
+
+        <button onclick="processHeatIndex()">CHECK STATUS</button>
+    </div>
+
+    <script>
+        // [cite: 29] JavaScript Logic
+        function processHeatIndex() {
+            let temp = parseFloat(document.getElementById("airTemp").value);
+            let humid = parseFloat(document.getElementById("relHum").value);
+
+            //  Official Formula: HeatIndex = temp + (0.33 * humidity) - 4
+            let result = temp + (0.33 * humid) - 4;
+            let description = "";
+
+            // [cite: 27] Conditional Statements for Status
+            if (result <= 27) {
+                description = "Comfortable / Cool";
+            } else if (result <= 32) {
+                description = "Warm";
+            } else if (result <= 37) {
+                description = "Hot";
+            } else if (result <= 41) {
+                description = "Very Hot / Caution";
+            } else {
+                description = "Extreme Heat / Danger";
+            }
+
+            // [cite: 31] Display result using window.alert
+            alert("Heat Index: " + result.toFixed(1) + "°C\nStatus: " + description);
+        }
+    </script>
+</body>
+</html>
